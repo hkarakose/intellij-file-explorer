@@ -1,0 +1,290 @@
+<!DOCTYPE idea-plugin PUBLIC "Plugin/DTD" "http://plugins.intellij.net/plugin.dtd">
+<idea-plugin url="http://filebrowser.beeger.net">
+  <name>FileBrowser</name>
+  <id>FileBrowser</id>
+  <description>
+    <![CDATA[
+    <p>FileBrowser allows browsing directories and files inside and outside of the current project and thus
+      makes it easier to open files with IDEA that are not part of the current project.</p>
+    ]]>
+  </description>
+  <change-notes>
+    <![CDATA[
+    <p>1.5.0</p>
+    <ul>
+      <li>Fixed Bug: Deleting a file while in &quot;Autoscroll from Source&quot; mode in FileBrowser sometimes
+        caused an Exception.</li>
+      <li>Added actions to go back and forward in the browsing history. Default keys assigned are like in the rest of IDEA
+        CTRL+ALT+LEFT and CTRL+ALT+RIGHT</li>
+      <li>The shortcuts for the actions &quot;Go To Parrent&quot; (default: LEFT) and
+        &quot;Activate selected file or folder&quot; (default: RIGHT or ENTER) can now be changed via IDEA's keymap settings</li>
+      <li>Displaying the parent in the file list can now be switched off in FileBrowser's application settings
+        (File -> Settings -> IDE Settings -> FileBrowser)</li>
+      <li>It's not possible to navigate to the list of roots from within the file list anymore. Currently only by using the
+        &quot;Go To&quot; action the root can be changed. A roots-menu will be added soon.</li>
+    </ul>
+    <p>1.4.0</p>
+    <ul>
+      <li>Fixed Bug: FileChooser invoked from FileBrowser's Copy or Move action didn't work properly.</li>
+      <li>Fixed Bug: Copy and Move didn't check whether the destination folder existed or whether there was already
+        a file with the same name as the copied or moved file.</li>
+      <li>Removed autocompletion in desitination folder comboBox. This is now a standard feature of IDEA's FileChooser.
+        No need to duplicate it here.</li>
+      <li>Destination folder comboBox now also contains project and application favorites</li>
+      <li>Added &quot;Go To&quot; action which can be used to jump directly to another folder without having to navigate step by step to it.</li>
+      <li>Added &quot;Go Up&quot; action. This one opens a menu with all ancestors of the current folder.</li>
+      <li>Move-Action was a bit dangerous. It first moved the file and then renamed it to its new name. So
+        it would first overwrite a file in the destination folder that had the original name of the moved file and then
+        rename it.</li>
+    </ul>
+    <p>1.3.0</p>
+    <ul>
+      <li>Fixed Bug: Pressing the DEL key in one of IDEA's Go To popup triggered FileBrowser's delete action.</li>
+      <li>Fixed Bug: Pressing the ENTER key in one of FileBrowser's dialogs made FileBrowser change to the parent folder
+        after closing the dialog.</li>
+      <li>Completely reworked Copy/Move functionality: Select some files and execute the Copy or Move action to
+        bring up a dialog where a destination folder can be chosen. Note: There is also some basic code
+        completion available in the combobox for the destination folder</li>
+      <li>Removed Duplicate action. The Copy action does what Duplicate did and more.</li>
+      <li>Shortcuts for FileBrowser actions now only work when the list has the focus. So you can reuse shortcuts
+        used for other toolwindows, since FileBrowser's shortcuts are only valid inside FileBrowser.</li>
+    </ul>
+    <p>1.2.1</p>
+    <ul>
+      <li>Partly fixed the bug of actions being reregistered when switching a project or openng a new one
+        in a new window. Only for some of the actions shortcuts can be set now. The rest will follow soon.</li>
+    </ul>
+    <p>1.2.0</p>
+    <ul>
+      <li>Renamed the action "Paste" to "Copy". That should make the handling a bit clearer. First you mark some files,
+        then you decide whether to copy or move them to another folder.</li>
+      <li>Shortcuts for all actions defined in FileBrowser can be assigned in IDEA's keymap settings. The default shortcuts are:
+        <ul>
+          <li>Delete: Del</li>
+          <li>Mark: F4</li>
+          <li>Copy: F5</li>
+          <li>Move: F6</li>
+          <li>Rename: shift F6</li>
+          <li>Add to application favorites: alt A</li>
+          <li>Add to project favorites: alt P</li>
+        </ul>
+      </li>
+      <li>When trying to open a file of a file type unknown to IDEA, the user now is asked to define a file type for
+        the suffix of the file.</li>
+    </ul>
+    <p>1.1.0</p>
+    <ul>
+      <li>Added Copy/Paste and Move operations: Use the Mark-Action in the popup to mark files and Paste or Move to copy or move them into another folder.</li>
+      <li>The list now allows multiple interval selection.</li>
+    </ul>
+    <p>1.0.2</p>
+    <ul>
+      <li>The files and folders in the list take up less space than before.</li>
+    </ul>
+    <p>1.0.1</p>
+    <ul>
+      <li>The toolwindow and the saved settings are now named FileBrowser instead of FileBrowserImpl</li>
+    </ul>
+    <p>1.0</p>
+    <ul>
+      <li>Initial release</li>
+    </ul>
+    ]]>
+  </change-notes>
+  <actions>
+    <action id="FileBrowser.addToApplicationFavorites"
+            class="net.beeger.filebrowser.actions.wrappers.AddToApplicationFavoritesActionWrapper"
+            text="Add to application favorites"
+            description="Add current folder to application favorites"
+            icon="/general/add.png">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt A"/>
+    </action>
+    <action id="FileBrowser.addToProjectFavorites"
+            class="net.beeger.filebrowser.actions.wrappers.AddToProjectFavoritesActionWrapper"
+            text="Add to project favorites"
+            description="Add current folder to project favorites"
+            icon="/general/add.png">
+      <keyboard-shortcut keymap="$default" first-keystroke="alt P"/>
+    </action>
+    <action id="FileBrowser.copy"
+            class="net.beeger.filebrowser.actions.wrappers.CopyActionWrapper"
+            text="Copy .."
+            description="Copy the previously marked files into the current folder">
+      <keyboard-shortcut keymap="$default" first-keystroke="F5"/>
+    </action>
+    <action id="FileBrowser.delete"
+            class="net.beeger.filebrowser.actions.wrappers.DeleteActionWrapper"
+            text="Delete"
+            description="Delete a file or folder"
+            icon="/actions/delete.png">
+      <keyboard-shortcut keymap="$default" first-keystroke="DELETE"/>
+    </action>
+    <action id="FileBrowser.move"
+            class="net.beeger.filebrowser.actions.wrappers.MoveActionWrapper"
+            text="Move .."
+            description="Move the previously marked files into the current folder">
+      <keyboard-shortcut keymap="$default" first-keystroke="F6"/>
+    </action>
+    <action id="FileBrowser.rename"
+            class="net.beeger.filebrowser.actions.wrappers.RenameActionWrapper"
+            text="Rename"
+            description="Rename a file or folder">
+      <keyboard-shortcut keymap="$default" first-keystroke="shift F6"/>
+    </action>
+    <action id="FileBrowser.newFile"
+            class="net.beeger.filebrowser.actions.wrappers.NewFileActionWrapper"
+            text="New file"
+            description="Create a new file"
+            icon="/fileTypes/text.png"/>
+    <action id="FileBrowser.newFolder"
+            class="net.beeger.filebrowser.actions.wrappers.NewFolderActionWrapper"
+            text="New folder"
+            description="Create a new folder"
+            icon="/actions/newFolder.png"/>
+    <action id="FileBrowser.synchronize"
+            class="net.beeger.filebrowser.actions.wrappers.SynchronizeActionWrapper"
+            text="Synchronize folder"
+            description="Synchronize the currently shown folder"
+            icon="/actions/sync.png"/>
+    <action id="FileBrowser.goto"
+            class="net.beeger.filebrowser.actions.wrappers.GoToActionWrapper"
+            text="Go To..."
+            description="Go To another folder"
+            icon="/net/beeger/filebrowser/images/goto.png"/>
+    <action id="FileBrowser.gotoParent"
+            class="net.beeger.filebrowser.actions.wrappers.GoToParentActionWrapper"
+            text="Go To Parent"
+            description="Go to the parent of the current folder">
+      <keyboard-shortcut keymap="$default" first-keystroke="LEFT"/>
+    </action>
+    <action id="FileBrowser.activateSelected"
+            class="net.beeger.filebrowser.actions.wrappers.ActivateSelectedActionWrapper"
+            text="Activate selected file or folder"
+            description="Either opens the current file in an editor or changes into a selected folder">
+      <keyboard-shortcut keymap="$default" first-keystroke="RIGHT"/>
+      <keyboard-shortcut keymap="$default" first-keystroke="ENTER"/>
+    </action>
+    <action id="FileBrowser.goBack"
+            class="net.beeger.filebrowser.actions.wrappers.GoBackActionWrapper"
+            text="Back"
+            description="Go back in history"
+            icon="/actions/back.png">
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt LEFT"/>
+    </action>
+    <action id="FileBrowser.goForward"
+            class="net.beeger.filebrowser.actions.wrappers.GoForwardActionWrapper"
+            text="Forward"
+            description="Fo forward in history"
+            icon="/actions/forward.png">
+      <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt RIGHT"/>
+    </action>
+  </actions>
+  <version>1.5.0</version>
+  <vendor url="http://beeger.net">Robert F. Beeger</vendor>
+  <idea-version since-build="6827"/>
+  <category>Navigation</category>
+  <project-components>
+    <component>
+      <implementation-class>net.beeger.filebrowser.FileBrowserProjectComponent</implementation-class>
+      <interface-class>net.beeger.filebrowser.FileBrowserProjectComponent</interface-class>
+      <option name="workspace" value="true"/>
+    </component>
+  </project-components>
+
+  <application-components>
+    <component>
+      <implementation-class>net.beeger.filebrowser.settings.ApplicationSettingsEditor</implementation-class>
+      <interface-class>net.beeger.filebrowser.settings.ApplicationSettingsEditor</interface-class>
+    </component>
+  </application-components>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService serviceInterface="net.beeger.filebrowser.settings.ApplicationSettings"
+                        serviceImplementation="net.beeger.filebrowser.settings.ApplicationSettings"/>
+    <projectService serviceInterface="net.beeger.filebrowser.settings.ProjectSettings"
+                    serviceImplementation="net.beeger.filebrowser.settings.ProjectSettings"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FileBrowser"
+                    serviceImplementation="net.beeger.filebrowser.FileBrowserImpl"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FolderDisplayManager"
+                    serviceImplementation="net.beeger.filebrowser.FolderDisplayManagerImpl"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FileTransferHandler"
+                    serviceImplementation="net.beeger.filebrowser.FileTransferHandler"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FileSystemHandler"
+                    serviceImplementation="net.beeger.filebrowser.FileSystemHandlerImpl"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FileOperationHandler"
+                    serviceImplementation="net.beeger.filebrowser.FileOperationHandlerImpl"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FileListCellRenderer"
+                    serviceImplementation="net.beeger.filebrowser.FileListCellRenderer"/>
+    <projectService serviceInterface="net.beeger.filebrowser.BrowseHistory"
+                    serviceImplementation="net.beeger.filebrowser.BrowseHistory"/>
+
+    <projectService serviceInterface="net.beeger.filebrowser.actions.AutoScrollFromSourceAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.AutoScrollFromSourceAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.AutoscrollToSourceAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.AutoscrollToSourceAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.DeleteAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.DeleteAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.DontShowUnknownFilesAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.DontShowUnknownFilesAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.FocusEditorAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.FocusEditorAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GroupFoldersAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.GroupFoldersAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.NewFileAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.NewFileAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.NewFolderAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.NewFolderAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.RenameAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.RenameAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.SynchronizeAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.SynchronizeAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.CopyAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.CopyAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.MoveAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.MoveAction"/>
+
+    <projectService serviceInterface="net.beeger.filebrowser.actions.ListPopupActionGroup"
+                    serviceImplementation="net.beeger.filebrowser.actions.ListPopupActionGroup"/>
+
+    <projectService serviceInterface="net.beeger.filebrowser.actions.AddToProjectFavoritesAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.AddToProjectFavoritesAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.AddToApplicationFavoritesAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.AddToApplicationFavoritesAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.RemoveFromFavoritesAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.RemoveFromFavoritesAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.FavoriteManagementActionGroup"
+                    serviceImplementation="net.beeger.filebrowser.actions.FavoriteManagementActionGroup"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.FavoritesActionGroup"
+                    serviceImplementation="net.beeger.filebrowser.actions.FavoritesActionGroup"/>
+
+    <projectService serviceInterface="net.beeger.filebrowser.actions.FavoritesAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.FavoritesAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GoToAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.GoToAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GoBackAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.GoBackAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GoForwardAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.GoForwardAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GoUpAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.GoUpAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GoUpActionGroup"
+                    serviceImplementation="net.beeger.filebrowser.actions.GoUpActionGroup"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.ToolBarActionGroup"
+                    serviceImplementation="net.beeger.filebrowser.actions.ToolBarActionGroup"/>
+
+    <projectService serviceInterface="net.beeger.filebrowser.actions.GoToParentAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.GoToParentAction"/>
+    <projectService serviceInterface="net.beeger.filebrowser.actions.ActivateSelectedAction"
+                    serviceImplementation="net.beeger.filebrowser.actions.ActivateSelectedAction"/>
+
+    <projectService serviceInterface="net.beeger.filebrowser.DialogProvider"
+                    serviceImplementation="net.beeger.filebrowser.DialogProviderImpl"/>
+    <projectService serviceInterface="net.beeger.filebrowser.DestinationChooser"
+                    serviceImplementation="net.beeger.filebrowser.DestinationChooserImpl"/>
+    <projectService serviceInterface="net.beeger.filebrowser.FolderChooserHandlerFactory"
+                    serviceImplementation="net.beeger.filebrowser.FolderChooserHandlerFactory"/>
+
+
+    <selectInTarget implementation="net.beeger.filebrowser.SelectInFileBrowserTarget"/>
+  </extensions>
+</idea-plugin>

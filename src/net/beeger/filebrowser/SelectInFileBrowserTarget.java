@@ -29,6 +29,7 @@ package net.beeger.filebrowser;
 import com.intellij.ide.SelectInContext;
 import com.intellij.ide.SelectInTarget;
 import com.intellij.openapi.wm.ToolWindowManager;
+import net.beeger.filebrowser.util.FileBrowserConstants;
 
 public class SelectInFileBrowserTarget implements SelectInTarget
 {
@@ -65,7 +66,7 @@ public class SelectInFileBrowserTarget implements SelectInTarget
 
   public String getToolWindowId()
   {
-    return FileBrowser.FILEBROWSER_TOOLWINDOW_ID;
+    return FileBrowserConstants.FILEBROWSER_TOOLWINDOW_ID;
   }
 
   public String getMinorViewId()

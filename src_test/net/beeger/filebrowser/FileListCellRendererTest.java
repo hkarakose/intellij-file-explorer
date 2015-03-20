@@ -26,6 +26,7 @@
 */
 package net.beeger.filebrowser;
 
+import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import static org.junit.Assert.*;
 import static org.easymock.classextension.EasyMock.*;
@@ -50,11 +51,11 @@ public class FileListCellRendererTest
     expectLastCall().anyTimes();
     VirtualFile parentMock = createMock(VirtualFile.class);
     expect(parentMock.getName()).andReturn("p").anyTimes();
-    expect(parentMock.getIcon()).andReturn(iconMock).anyTimes();
+    expect(FileTypeManager.getInstance().getFileTypeByFile(parentMock).getIcon()).andReturn(iconMock).anyTimes();
     expect(parentMock.isDirectory()).andReturn(true).anyTimes();
     VirtualFile folderMock = createMock(VirtualFile.class);
     expect(folderMock.getName()).andReturn("test").anyTimes();
-    expect(folderMock.getIcon()).andReturn(iconMock).anyTimes();
+    expect(FileTypeManager.getInstance().getFileTypeByFile(folderMock).getIcon()).andReturn(iconMock).anyTimes();
     expect(folderMock.isDirectory()).andReturn(true).anyTimes();
     expect(folderMock.getParent()).andReturn(parentMock).anyTimes();
     FolderDisplayManager folderDisplayManagerMock = createMock(FolderDisplayManager.class);
@@ -84,12 +85,12 @@ public class FileListCellRendererTest
     expectLastCall().anyTimes();
     VirtualFile parentMock = createMock(VirtualFile.class);
     expect(parentMock.getName()).andReturn("p").anyTimes();
-    expect(parentMock.getIcon()).andReturn(iconMock).anyTimes();
+    expect(FileTypeManager.getInstance().getFileTypeByFile(parentMock).getIcon()).andReturn(iconMock).anyTimes();
     expect(parentMock.isDirectory()).andReturn(true).anyTimes();
     expect(parentMock.getParent()).andReturn(null).anyTimes();
     VirtualFile fileMock = createMock(VirtualFile.class);
     expect(fileMock.getName()).andReturn("test").anyTimes();
-    expect(fileMock.getIcon()).andReturn(iconMock).anyTimes();
+    expect(FileTypeManager.getInstance().getFileTypeByFile(fileMock).getIcon()).andReturn(iconMock).anyTimes();
     expect(fileMock.isDirectory()).andReturn(true).anyTimes();
     expect(fileMock.getParent()).andReturn(parentMock).anyTimes();
     FolderDisplayManager folderDisplayManagerMock = createMock(FolderDisplayManager.class);

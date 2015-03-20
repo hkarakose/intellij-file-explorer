@@ -44,5 +44,4 @@ public interface FileBrowser
 
   void setToolWindow(ToolWindow toolWindow);
 
-  String FILEBROWSER_TOOLWINDOW_ID = "FileBrowser";
 }

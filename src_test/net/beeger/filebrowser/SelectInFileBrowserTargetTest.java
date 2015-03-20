@@ -31,6 +31,8 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import static org.junit.Assert.*;
+
+import net.beeger.filebrowser.util.FileBrowserConstants;
 import org.easymock.IAnswer;
 import static org.easymock.classextension.EasyMock.*;
 import org.junit.Test;
@@ -54,7 +56,7 @@ public class SelectInFileBrowserTargetTest
       }
     });
     ToolWindowManager toolWindowManagerMock = createMock(ToolWindowManager.class);
-    expect(toolWindowManagerMock.getToolWindow(FileBrowser.FILEBROWSER_TOOLWINDOW_ID)).andReturn(toolWindowMock);
+    expect(toolWindowManagerMock.getToolWindow(FileBrowserConstants.FILEBROWSER_TOOLWINDOW_ID)).andReturn(toolWindowMock);
     FileBrowser fileBrowserMock = createMock(FileBrowser.class);
     fileBrowserMock.select(fileMock);
     replay(selectInContextMock, toolWindowMock, toolWindowManagerMock, fileBrowserMock);
@@ -82,7 +84,7 @@ public class SelectInFileBrowserTargetTest
       }
     });
     ToolWindowManager toolWindowManagerMock = createMock(ToolWindowManager.class);
-    expect(toolWindowManagerMock.getToolWindow(FileBrowser.FILEBROWSER_TOOLWINDOW_ID)).andReturn(toolWindowMock);
+    expect(toolWindowManagerMock.getToolWindow(FileBrowserConstants.FILEBROWSER_TOOLWINDOW_ID)).andReturn(toolWindowMock);
     FileBrowser fileBrowserMock = createMock(FileBrowser.class);
     fileBrowserMock.select(fileMock);
     replay(selectInContextMock, toolWindowMock, toolWindowManagerMock, fileBrowserMock);
@@ -104,7 +106,7 @@ public class SelectInFileBrowserTargetTest
     SelectInFileBrowserTarget testObject = new SelectInFileBrowserTarget(fileBrowserMock, toolWindowManagerMock);
 
     assertEquals(true, testObject.canSelect(selectInContextMock));
-    assertEquals(FileBrowser.FILEBROWSER_TOOLWINDOW_ID, testObject.getToolWindowId());
+    assertEquals(FileBrowserConstants.FILEBROWSER_TOOLWINDOW_ID, testObject.getToolWindowId());
     assertEquals(null, testObject.getMinorViewId());
     assertEquals(100f, testObject.getWeight(), 0.0f);
     assertEquals("FileBrowser", testObject.toString());

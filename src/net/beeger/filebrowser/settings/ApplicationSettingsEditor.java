@@ -4,6 +4,7 @@ import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.util.IconLoader;
+import net.beeger.filebrowser.util.FileBrowserConstants;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +43,7 @@ public class ApplicationSettingsEditor implements ApplicationComponent, Configur
 
   @Nullable public Icon getIcon()
   {
-    return IconLoader.getIcon("/net/beeger/filebrowser/images/filebrowser32.png");
+    return IconLoader.getIcon(FileBrowserConstants.pluginIcon);
   }
 
   @Nullable @NonNls public String getHelpTopic()

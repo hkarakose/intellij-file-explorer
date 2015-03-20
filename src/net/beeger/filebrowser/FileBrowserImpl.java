@@ -188,11 +188,10 @@ public class FileBrowserImpl implements SettingsChangedListener, FileBrowser, Fi
     _fileList.setTransferHandler(_fileTransferHandler);
     _fileList.setDragEnabled(true);
     InputMap imap = _fileList.getInputMap();
-    imap.put(KeyStroke.getKeyStroke("ctrl V"),
-        TransferHandler.getPasteAction().getValue(Action.NAME));
-    ActionMap map = _fileList.getActionMap();
-    map.put(TransferHandler.getPasteAction().getValue(Action.NAME),
-        TransferHandler.getPasteAction());
+    imap.put(KeyStroke.getKeyStroke("ctrl V"), TransferHandler.getPasteAction().getValue(Action.NAME));
+
+	ActionMap map = _fileList.getActionMap();
+    map.put(TransferHandler.getPasteAction().getValue(Action.NAME), TransferHandler.getPasteAction());
   }
 
   private void onCurrentlyEditedFileChanged(String path)

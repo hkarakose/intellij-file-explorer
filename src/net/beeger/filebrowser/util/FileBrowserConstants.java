@@ -6,4 +6,7 @@ package net.beeger.filebrowser.util;
  * Time: 18:26
  */
 public class FileBrowserConstants {
+	public static final String pluginIcon = "/nodes/ppFile.png";
+	public static final String FILEBROWSER_TOOLWINDOW_ID = "FileBrowser";
+	public static final String intellijFileBrowser = "IntellijFileBrowser";
 }

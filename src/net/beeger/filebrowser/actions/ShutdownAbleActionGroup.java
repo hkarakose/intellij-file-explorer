@@ -26,10 +26,8 @@
 */
 package net.beeger.filebrowser.actions;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.DefaultActionGroup;
+import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.impl.ActionManagerImpl;
 import net.beeger.filebrowser.ShutdownAble;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.Nullable;
@@ -56,7 +54,8 @@ public abstract class ShutdownAbleActionGroup extends DefaultActionGroup impleme
         return null;
       }
     };
-    AnActionEvent event = new AnActionEvent(null, dataContext, "", getTemplatePresentation(), null, 0);
+
+    AnActionEvent event = new AnActionEvent(null, dataContext, "", getTemplatePresentation(), ActionManager.getInstance(), 0);
     for (AnAction action : getChildren(event))
     {
       if (action instanceof ShutdownAble)

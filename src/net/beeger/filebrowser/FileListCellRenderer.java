@@ -26,6 +26,7 @@
 */
 package net.beeger.filebrowser;
 
+import com.intellij.openapi.fileTypes.FileTypeManager;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.Icons;
 
@@ -51,7 +52,7 @@ class FileListCellRenderer implements ListCellRenderer
   public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
   {
     VirtualFile file = (VirtualFile) value;
-    _label.setIcon(file.getIcon());
+    _label.setIcon(FileTypeManager.getInstance().getFileTypeByFile(file).getIcon());
     _label.setText(file.getName());
 
     if (file.isDirectory())

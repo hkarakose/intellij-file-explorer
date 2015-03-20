@@ -67,7 +67,7 @@ public class DeleteAction extends AbstractFileListHandlerAwareAction implements 
       {
         List<VirtualFile> files = getFileListHandler().getSelectedFiles();
         if (_dialogProvider.getConfirmationFromUser(
-            "Do you really want to delete " + files.size() + " selected files?"))
+            "Do you really want to delete " + files.size() + " selected file(s)?"))
         {
           try
           {

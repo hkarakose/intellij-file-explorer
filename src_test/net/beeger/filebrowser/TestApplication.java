@@ -27,21 +27,23 @@
 package net.beeger.filebrowser;
 
 import com.intellij.ide.plugins.IdeaPluginDescriptor;
-import com.intellij.openapi.application.Application;
-import com.intellij.openapi.application.ApplicationListener;
-import com.intellij.openapi.application.ModalityState;
+import com.intellij.openapi.Disposable;
+import com.intellij.openapi.application.*;
 import com.intellij.openapi.components.BaseComponent;
 import com.intellij.openapi.components.ComponentConfig;
 import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.util.Computable;
+import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.Key;
+import com.intellij.openapi.util.ThrowableComputable;
 import com.intellij.util.messages.MessageBus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.picocontainer.PicoContainer;
 
 import java.awt.Component;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 public class TestApplication implements Application
@@ -57,7 +59,11 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public void runWriteAction(Runnable action)
+	public <T, E extends Throwable> T runReadAction(@NotNull ThrowableComputable<T, E> throwableComputable) throws E {
+		return null;
+	}
+
+	public void runWriteAction(Runnable action)
   {
     action.run();
   }
@@ -67,7 +73,15 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  @Nullable
+	public <T, E extends Throwable> T runWriteAction(@NotNull ThrowableComputable<T, E> throwableComputable) throws E {
+		return null;
+	}
+
+	public boolean hasWriteAction(@Nullable Class<?> aClass) {
+		return false;
+	}
+
+	@Nullable
   public Object getCurrentWriteAction(Class actionClass)
   {
     throw new UnsupportedOperationException();
@@ -93,7 +107,11 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public void removeApplicationListener(ApplicationListener listener)
+	public void addApplicationListener(@NotNull ApplicationListener applicationListener, @NotNull Disposable disposable) {
+
+	}
+
+	public void removeApplicationListener(ApplicationListener listener)
   {
     throw new UnsupportedOperationException();
   }
@@ -128,17 +146,30 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public void invokeLater(Runnable runnable)
+	@NotNull
+	public ModalityInvokator getInvokator() {
+		return null;
+	}
+
+	public void invokeLater(Runnable runnable)
   {
     throw new UnsupportedOperationException();
   }
 
-  public void invokeLater(Runnable runnable, @NotNull ModalityState state)
+	public void invokeLater(@NotNull Runnable runnable, @NotNull Condition condition) {
+
+	}
+
+	public void invokeLater(Runnable runnable, @NotNull ModalityState state)
   {
     throw new UnsupportedOperationException();
   }
 
-  public void invokeAndWait(Runnable runnable, @NotNull ModalityState modalityState)
+	public void invokeLater(@NotNull Runnable runnable, @NotNull ModalityState modalityState, @NotNull Condition condition) {
+
+	}
+
+	public void invokeAndWait(Runnable runnable, @NotNull ModalityState modalityState)
   {
     throw new UnsupportedOperationException();
   }
@@ -163,7 +194,12 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public long getStartTime()
+	@NotNull
+	public ModalityState getAnyModalityState() {
+		return null;
+	}
+
+	public long getStartTime()
   {
     throw new UnsupportedOperationException();
   }
@@ -183,7 +219,11 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public IdeaPluginDescriptor getPlugin(PluginId id)
+	public boolean isCommandLine() {
+		return false;
+	}
+
+	public IdeaPluginDescriptor getPlugin(PluginId id)
   {
     throw new UnsupportedOperationException();
   }
@@ -258,7 +298,12 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public ComponentConfig getConfig(Class componentImplementation)
+	@NotNull
+	public Condition getDisposed() {
+		return null;
+	}
+
+	public ComponentConfig getConfig(Class componentImplementation)
   {
     throw new UnsupportedOperationException();
   }
@@ -268,12 +313,47 @@ public class TestApplication implements Application
     throw new UnsupportedOperationException();
   }
 
-  public boolean isDisposeInProgress()
+	@NotNull
+	public <T> Future<T> executeOnPooledThread(@NotNull Callable<T> callable) {
+		return null;
+	}
+
+	public boolean isDisposeInProgress()
   {
     return false;  //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public <T> T getUserData(Key<T> key)
+	public boolean isRestartCapable() {
+		return false;
+	}
+
+	public void restart() {
+
+	}
+
+	public boolean isActive() {
+		return false;
+	}
+
+	@NotNull
+	public AccessToken acquireReadActionLock() {
+		return null;
+	}
+
+	@NotNull
+	public AccessToken acquireWriteActionLock(@Nullable Class aClass) {
+		return null;
+	}
+
+	public boolean isInternal() {
+		return false;
+	}
+
+	public boolean isEAP() {
+		return false;
+	}
+
+	public <T> T getUserData(Key<T> key)
   {
     throw new UnsupportedOperationException();
   }

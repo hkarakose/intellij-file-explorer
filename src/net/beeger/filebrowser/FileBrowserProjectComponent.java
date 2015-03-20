@@ -31,6 +31,7 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
+import net.beeger.filebrowser.util.FileBrowserConstants;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -55,13 +56,13 @@ public class FileBrowserProjectComponent implements ProjectComponent
   @NotNull
   public String getComponentName()
   {
-    return "FileBrowser";
+	  return FileBrowserConstants.intellijFileBrowser;
   }
 
   public void projectOpened()
   {
-    ToolWindow window = _toolWindowManager.registerToolWindow(FileBrowser.FILEBROWSER_TOOLWINDOW_ID, _fileBrowser.getUI(), ToolWindowAnchor.LEFT);
-    window.setIcon(IconLoader.getIcon("/net/beeger/filebrowser/images/filebrowser.png"));
+    ToolWindow window = _toolWindowManager.registerToolWindow(FileBrowserConstants.FILEBROWSER_TOOLWINDOW_ID, _fileBrowser.getUI(), ToolWindowAnchor.LEFT);
+	  window.setIcon(IconLoader.getIcon(FileBrowserConstants.pluginIcon));
     _fileBrowser.setToolWindow(window);
     _fileBrowser.start();
   }
@@ -69,7 +70,7 @@ public class FileBrowserProjectComponent implements ProjectComponent
   public void projectClosed()
   {
     _fileBrowser.shutdown();
-    _toolWindowManager.unregisterToolWindow(FileBrowser.FILEBROWSER_TOOLWINDOW_ID);
+    _toolWindowManager.unregisterToolWindow(FileBrowserConstants.FILEBROWSER_TOOLWINDOW_ID);
   }
 
   private final ToolWindowManager _toolWindowManager;

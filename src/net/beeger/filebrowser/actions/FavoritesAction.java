@@ -34,7 +34,7 @@ public class FavoritesAction extends AbstractPopupTriggerAction
 {
   public FavoritesAction(ActionManager actionManager, FavoritesActionGroup favoritesActionGroup)
   {
-    super("Favorites", "", IconLoader.getIcon("/general/toolWindowFavorites.png"), actionManager, favoritesActionGroup);
+    super("Favorites", "", IconLoader.getIcon("/toolwindows/toolWindowFavorites.png"), actionManager, favoritesActionGroup);
   }
 
 }

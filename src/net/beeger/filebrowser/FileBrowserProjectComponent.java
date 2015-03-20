@@ -31,7 +31,7 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowAnchor;
 import com.intellij.openapi.wm.ToolWindowManager;
-import net.beeger.filebrowser.util.FileBrowserConstants;
+import com.kodfarki.intellij.plugins.filebrowser.util.FileBrowserConstants;
 import org.jetbrains.annotations.NotNull;
 
 /**

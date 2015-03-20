@@ -29,7 +29,7 @@ package net.beeger.filebrowser;
 import com.intellij.ide.SelectInContext;
 import com.intellij.ide.SelectInTarget;
 import com.intellij.openapi.wm.ToolWindowManager;
-import net.beeger.filebrowser.util.FileBrowserConstants;
+import com.kodfarki.intellij.plugins.filebrowser.util.FileBrowserConstants;
 
 public class SelectInFileBrowserTarget implements SelectInTarget
 {

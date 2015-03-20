@@ -4,7 +4,7 @@ import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.util.IconLoader;
-import net.beeger.filebrowser.util.FileBrowserConstants;
+import com.kodfarki.intellij.plugins.filebrowser.util.FileBrowserConstants;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;

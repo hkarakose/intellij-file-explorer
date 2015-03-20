@@ -1,4 +1,4 @@
-package net.beeger.filebrowser.util;
+package com.kodfarki.intellij.plugins.filebrowser.util;
 
 /**
  * User: Halil Karakose

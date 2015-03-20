@@ -32,7 +32,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import static org.junit.Assert.*;
 
-import net.beeger.filebrowser.util.FileBrowserConstants;
+import com.kodfarki.intellij.plugins.filebrowser.util.FileBrowserConstants;
 import org.easymock.IAnswer;
 import static org.easymock.classextension.EasyMock.*;
 import org.junit.Test;
